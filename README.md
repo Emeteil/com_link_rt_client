@@ -2,19 +2,6 @@
 
 Библиотека Python - клиент для связи с робототехническим оборудованием по протоколу COM-LINK-RT через последовательный порт.
 
-## Установка
-
-Из исходного кода:
-```bash
-pip install https://github.com/Emeteil/com_link_rt.git
-```
-
-Как сабмодуль git:
-```bash
-git submodule add https://github.com/Emeteil/com_link_rt.git
-pip install -r requirements.txt
-```
-
 ## Использование
 
 ### Простой пример с командами
