@@ -6,6 +6,7 @@ from .core.commands.millis import MillisCommand
 from .core.commands.gyro import GyroCommand
 from .core.commands.distance import DistanceCommand
 from .core.commands.servo import ServoCommand
+from .core.commands.motors import MotorsCommand
 
 __version__ = "1.0.0"
 __all__ = [
@@ -19,4 +20,5 @@ __all__ = [
     "GyroCommand",
     "DistanceCommand",
     "ServoCommand",
+    "MotorsCommand",
 ]
