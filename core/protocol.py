@@ -6,7 +6,6 @@ class ServiceBits(int, Enum):
     UNSUBSCRIBED = 0x40
     KEEP_ALIVE = 0x20
     UNSUBSCRIBE = 0x10
-    NO_REPLY = 0x08
     EMPTY = 0x00
 
 
