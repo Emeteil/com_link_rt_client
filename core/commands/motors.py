@@ -22,8 +22,8 @@ class MotorsCommand(BaseCommand):
     MOTOR_BOTH = 0x03 # ..0011
     
     def __init__(self, connection):
-        self.PACKET_TYPE_REQUEST = 0x0B
-        self.PACKET_TYPE_RESPONSE = 0x0C
+        self.PACKET_TYPE_REQUEST = 0x07
+        self.PACKET_TYPE_RESPONSE = 0x08
         super().__init__(connection, self.PACKET_TYPE_REQUEST, self.PACKET_TYPE_RESPONSE)
         
         self.connection.register_handler(self.PACKET_TYPE_RESPONSE, self._handle_response)
