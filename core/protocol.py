@@ -35,7 +35,7 @@ def calculate_crc(data: bytes) -> int:
 class PacketHeader:
     SYNC1 = 0xAA
     SYNC2 = 0x55
-    VERSION = 0x02
+    VERSION = 0x03
 
     STRUCT_FORMAT = "<BBBBBHHH"
     HEADER_SIZE = struct.calcsize(STRUCT_FORMAT)

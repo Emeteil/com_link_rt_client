@@ -6,7 +6,7 @@
 
 ### Простой пример с командами
 ```python
-from com_link_rt import ComLinkConnection, PingCommand, DistanceCommand
+from com_link_rt import ComLinkConnection, PingCommand, VersionCommand
 
 with ComLinkConnection('COM7') as conn:
     # Проверка соединения
@@ -14,27 +14,24 @@ with ComLinkConnection('COM7') as conn:
     if ping.execute():
         print("Соединение установлено!")
 
-    # Получение данных с датчика расстояния
-    distance = DistanceCommand(conn)
-    dist_cm = distance.execute()
-    print(f"Расстояние: {dist_cm} см")
+    # Получение версии прошивки
+    version = VersionCommand(conn)
+    info = version.execute()
+    print(f"Прошивка собрана: {info['build_date']} {info['build_time']}")
 ```
 
 ### Пример с подпиской на данные
 ```python
-from com_link_rt import ComLinkConnection, GyroCommand
+from com_link_rt import ComLinkConnection, MillisCommand
 
-def on_gyro_data(data):
-    accel = gyro.get_acceleration(data)
-    rotation = gyro.get_rotation(data)
-    temp = gyro.get_temperature(data)
-    print(f"Ускорение: {accel}, Вращение: {rotation}, Температура: {temp:.1f}°C")
+def on_millis_data(data):
+    print(f"Аптайм устройства: {data} мс")
 
 with ComLinkConnection('COM7') as conn:
-    gyro = GyroCommand(conn)
+    millis = MillisCommand(conn)
 
-    # Подписка на данные гироскопа
-    gyro.subscribe(on_gyro_data, mode=GyroCommand.GYRO_CALIBRATED_FILTERED)
+    # Подписка на данные аптайма
+    millis.subscribe(on_millis_data)
 
     # Поддержание соединения
     import time
