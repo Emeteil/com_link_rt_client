@@ -37,3 +37,25 @@ with ComLinkConnection('COM7') as conn:
     import time
     time.sleep(10)
 ```
+
+## Тесты
+
+```bash
+pip install -r requirements-dev.txt
+pytest
+```
+
+Тесты не требуют подключённого устройства. Протокол лежит в `tests/test_core/`, команды в `tests/test_commands/` (по файлу на команду), общие вспомогательные классы в `tests/common/`.
+
+Новый тест команды: создайте `tests/test_commands/test_<name>.py`, возьмите `FakeConnection` из `common.fake_connection` и передайте ему ответ `(тип_пакета, payload)`:
+
+```python
+from common.fake_connection import FakeConnection
+from core.commands.ping import PingCommand
+
+def test_ping_returns_latency():
+    conn = FakeConnection(response=(0x02, b""))
+    assert PingCommand(conn).execute() >= 0
+```
+
+Имена тестовых файлов должны быть уникальными во всём `tests/`.
