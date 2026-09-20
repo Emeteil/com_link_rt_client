@@ -21,3 +21,36 @@ def test_millis_subscribe_delivers_data():
         assert received == [7]
     finally:
         cmd._stop_keep_alive()
+
+
+def test_millis_subscribe_sends_request_with_id():
+    conn = FakeConnection()
+    cmd = MillisCommand(conn)
+    cmd.subscribe(lambda value: None, keep_alive_interval=60)
+    try:
+        assert conn.sent == [(0x03, ServiceBits.SUBSCRIBE, b"")]
+        assert cmd.is_subscribed
+    finally:
+        cmd._stop_keep_alive()
+
+
+def test_millis_unsubscribe_sends_unsubscribe():
+    conn = FakeConnection()
+    cmd = MillisCommand(conn)
+    cmd.subscribe(lambda value: None, keep_alive_interval=60)
+    cmd.unsubscribe()
+    assert conn.sent[-1] == (0x03, 0x10, b"")
+    assert not cmd.is_subscribed
+
+
+def test_millis_unsubscribed_flag_stops_subscription():
+    conn = FakeConnection()
+    cmd = MillisCommand(conn)
+    received = []
+    cmd.subscribe(received.append, keep_alive_interval=60)
+    try:
+        conn.handlers[0x04]({"packet_type": 0x04, "service_bits": ServiceBits.UNSUBSCRIBED, "payload": b""})
+        assert not cmd.is_subscribed
+        assert received == []
+    finally:
+        cmd._stop_keep_alive()

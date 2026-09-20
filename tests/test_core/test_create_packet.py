@@ -7,7 +7,8 @@ from core.protocol import PacketHeader, ServiceBits, calculate_crc, create_packe
 
 def test_header_fields_layout():
     raw = create_packet(0x07, ServiceBits.KEEP_ALIVE, 0x1234, b"xy")
-    sync1, sync2, version, ptype, bits, pid, length, _ = struct.unpack(PacketHeader.STRUCT_FORMAT, raw[:PacketHeader.HEADER_SIZE])
+    header = raw[:PacketHeader.HEADER_SIZE]
+    sync1, sync2, version, ptype, bits, pid, length, _ = struct.unpack(PacketHeader.STRUCT_FORMAT, header)
     assert (sync1, sync2, version) == (0xAA, 0x55, 0x03)
     assert (ptype, bits, pid, length) == (0x07, ServiceBits.KEEP_ALIVE, 0x1234, 2)
 

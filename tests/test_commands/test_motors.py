@@ -11,8 +11,7 @@ def test_motors_move_forward_payload():
     assert MotorsCommand(conn).move_forward(speed=100, wait_response=False) is True
     packet_type, _, data = conn.sent[0]
     assert packet_type == 0x07
-    assert data == struct.pack("<BBBBBB", MotorsCommand.COMMAND_SET_BOTH, MotorsCommand.MOTOR_BOTH,
-                               MotorsCommand.DIRECTION_FORWARD, MotorsCommand.DIRECTION_FORWARD, 100, 100)
+    assert data == bytes.fromhex("03 03 01 01 64 64")
 
 
 def test_motors_stop_all_waits_for_response():
