@@ -5,6 +5,7 @@ from .core.commands.ping import PingCommand
 from .core.commands.millis import MillisCommand
 from .core.commands.version import VersionCommand
 from .core.commands.motors import MotorsCommand
+from .core.commands.distance import DistanceCommand
 
 __version__ = "1.0.0"
 __all__ = [
@@ -17,4 +18,5 @@ __all__ = [
     "MillisCommand",
     "VersionCommand",
     "MotorsCommand",
+    "DistanceCommand",
 ]

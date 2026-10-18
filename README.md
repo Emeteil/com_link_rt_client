@@ -38,6 +38,22 @@ with ComLinkConnection('COM7') as conn:
     time.sleep(10)
 ```
 
+### Дальномеры (8 x HC-SR04)
+```python
+from com_link_rt import ComLinkConnection, DistanceCommand
+
+def on_distance(values):
+    # список по датчикам: мм, DistanceCommand.NO_ECHO (0) или DistanceCommand.SENSOR_ERROR (65535)
+    print(values)
+
+with ComLinkConnection('COM7') as conn:
+    distance = DistanceCommand(conn)
+    print(distance.execute())          # разовый запрос последних значений
+    distance.subscribe(on_distance)    # ~4 пакета в секунду
+    import time
+    time.sleep(10)
+```
+
 ## Тесты
 
 ```bash
