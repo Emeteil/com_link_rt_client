@@ -38,6 +38,19 @@ with ComLinkConnection('COM7') as conn:
     time.sleep(10)
 ```
 
+### Магнитометр и GPS
+```python
+from com_link_rt import ComLinkConnection, MagnetometerCommand, GpsCommand
+
+with ComLinkConnection('COM7') as conn:
+    mag = MagnetometerCommand(conn)
+    mag.subscribe(lambda d: print(d["x"] / MagnetometerCommand.LSB_PER_GAUSS, d["status"]))  # ~20 Гц
+
+    gps = GpsCommand(conn).execute()
+    if gps and gps["position_valid"]:
+        print(gps["latitude"], gps["longitude"], gps["satellites_used"])
+```
+
 ### Дальномеры (8 x HC-SR04)
 ```python
 from com_link_rt import ComLinkConnection, DistanceCommand

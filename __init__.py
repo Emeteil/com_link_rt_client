@@ -6,6 +6,8 @@ from .core.commands.millis import MillisCommand
 from .core.commands.version import VersionCommand
 from .core.commands.motors import MotorsCommand
 from .core.commands.distance import DistanceCommand
+from .core.commands.magnetometer import MagnetometerCommand
+from .core.commands.gps import GpsCommand
 
 __version__ = "1.0.0"
 __all__ = [
@@ -19,4 +21,6 @@ __all__ = [
     "VersionCommand",
     "MotorsCommand",
     "DistanceCommand",
+    "MagnetometerCommand",
+    "GpsCommand",
 ]
